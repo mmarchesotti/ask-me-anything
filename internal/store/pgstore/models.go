@@ -11,7 +11,7 @@ import (
 type Message struct {
 	ID            uuid.UUID
 	RoomID        uuid.UUID
-	Messages      string
+	Message       string
 	ReactionCount int64
 	Answered      bool
 }
