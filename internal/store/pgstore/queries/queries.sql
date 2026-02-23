@@ -35,7 +35,7 @@ WHERE
 	room_id = $1;
 
 -- name: InsertMessage :one
-INSERT INTO message (
+INSERT INTO messages (
 	"room_id", "message"
 ) VALUES ( $1 , $2)
 RETURNING "id";
@@ -43,14 +43,14 @@ RETURNING "id";
 -- name: ReactToMessage :one
 UPDATE messages
 	SET reaction_count = reaction_count + 1
-	WHERE id = $1;
-RETURNING reaction_count;
+	WHERE id = $1
+RETURNING "reaction_count";
 
 -- name: RemoveReactionFromMessage :one
 UPDATE messages
 	SET reaction_count = reaction_count - 1
-	WHERE id = $1;
-RETURNING reaction_count;
+	WHERE id = $1
+RETURNING "reaction_count";
 
 -- name: MarkMessageAsAnswered :exec
 UPDATE messages
