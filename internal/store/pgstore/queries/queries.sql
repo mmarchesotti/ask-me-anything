@@ -26,7 +26,7 @@ FROM
 WHERE
 	id = $1;
 
--- name: GetMessage :many
+-- name: GetMessages :many
 SELECT
 	"id", "room_id", "message", "reaction_count", "answered"
 FROM
