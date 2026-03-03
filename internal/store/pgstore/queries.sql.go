@@ -33,7 +33,23 @@ func (q *Queries) GetMessage(ctx context.Context, id uuid.UUID) (Message, error)
 	return i, err
 }
 
-const getMessages = `-- name: GetMessages :many
+const getRoom = `-- name: GetRoom :one
+SELECT
+	"id", "theme"
+FROM
+	rooms
+WHERE
+	id = $1
+`
+
+func (q *Queries) GetRoom(ctx context.Context, id uuid.UUID) (Room, error) {
+	row := q.db.QueryRow(ctx, getRoom, id)
+	var i Room
+	err := row.Scan(&i.ID, &i.Theme)
+	return i, err
+}
+
+const getRoomMessages = `-- name: GetRoomMessages :many
 SELECT
 	"id", "room_id", "message", "reaction_count", "answered"
 FROM
@@ -42,8 +58,8 @@ WHERE
 	room_id = $1
 `
 
-func (q *Queries) GetMessages(ctx context.Context, roomID uuid.UUID) ([]Message, error) {
-	rows, err := q.db.Query(ctx, getMessages, roomID)
+func (q *Queries) GetRoomMessages(ctx context.Context, roomID uuid.UUID) ([]Message, error) {
+	rows, err := q.db.Query(ctx, getRoomMessages, roomID)
 	if err != nil {
 		return nil, err
 	}
@@ -66,22 +82,6 @@ func (q *Queries) GetMessages(ctx context.Context, roomID uuid.UUID) ([]Message,
 		return nil, err
 	}
 	return items, nil
-}
-
-const getRoom = `-- name: GetRoom :one
-SELECT
-	"id", "theme"
-FROM
-	rooms
-WHERE
-	id = $1
-`
-
-func (q *Queries) GetRoom(ctx context.Context, id uuid.UUID) (Room, error) {
-	row := q.db.QueryRow(ctx, getRoom, id)
-	var i Room
-	err := row.Scan(&i.ID, &i.Theme)
-	return i, err
 }
 
 const getRooms = `-- name: GetRooms :many
