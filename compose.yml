@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: ask-me-anything-db
+    restart: unless-stopped
+    ports:
+      - "${WS_DATABASE_PORT:-5432}:5432"
+    environment:
+      POSTGRES_USER: ${WS_DATABASE_USER}
+      POSTGRES_PASSWORD: ${WS_DATABASE_PASSWORD}
+      POSTGRES_DB: ${WS_DATABASE_NAME}
+    volumes:
+      - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${WS_DATABASE_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: ask-me-anything-pgadmin
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  backend:
+    build: ./backend
+    container_name: ask-me-anything-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: ask-me-anything-frontend
+    network_mode: host
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
+  pgadmin_data:
