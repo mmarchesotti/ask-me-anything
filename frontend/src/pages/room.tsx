@@ -1,11 +1,24 @@
 import { ArrowRight, ArrowUp, Share2 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import amaLogo from '../assets/ama-logo.svg';
+import { toast } from 'sonner';
 
 export function Room() {
     const { roomID } = useParams();
 
     const navigate = useNavigate();
+
+    function handleShareRoom() {
+        const url = window.location.href.toString();
+
+        if (navigator.share != undefined && navigator.canShare()) {
+            navigator.share({ url });
+        } else {
+            navigator.clipboard.writeText(url);
+
+            toast('Room URL copied to clipboard.');
+        }
+    }
 
     function handleCreateMessage(data: FormData) {
         const theme = data.get('theme')?.toString();
@@ -24,6 +37,7 @@ export function Room() {
                 </div>
                 <button
                     type="button"
+                    onClick={handleShareRoom}
                     className="bg-zinc-800 text-zinc-300 px-3 py-1.5 gap-1.5 flex items-center rounded-lg font-medium text-sm transition-colors hover:bg-zinc-700"
                 >
                     Compartilhar
