@@ -1,7 +1,8 @@
-import { ArrowRight, ArrowUp, Share2 } from 'lucide-react';
+import { ArrowRight, Share2 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import amaLogo from '../assets/ama-logo.svg';
 import { toast } from 'sonner';
+import { Message } from '../components/message';
 
 export function Room() {
     const { roomID } = useParams();
@@ -69,23 +70,19 @@ export function Room() {
             </form>
 
             <ol className="list-decimal list-outside px-3 space-y-8">
-                <li className="ml-4 leading-relaxed text-zinc-100 opacity-50">
-                    O que é GoLang e quais são suas principais vantagens em
-                    comparação com outras linguagens de programação como Python,
-                    Java ou C++?
-                    <button className="text-zinc-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-zinc-300">
-                        <ArrowUp className="size-4" />
-                        Curtir pergunta (182)
-                    </button>
-                </li>
-                <li className="ml-4 leading-relaxed text-zinc-100">
-                    Como funcionam as goroutines em GoLang e por que elas são
-                    importantes para a concorrência e paralelismo?
-                    <button className="text-orange-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-orange-500">
-                        <ArrowUp className="size-4" />
-                        Curtir pergunta (173)
-                    </button>
-                </li>
+                <Message
+                    text="O que é GoLang e quais são suas principais vantagens em comparação com outras linguagens de programação como Python, Java ou C++?"
+                    reactionCount={321}
+                    answered
+                />
+                <Message
+                    text="Como funcionam as goroutines em GoLang e por que elas são importantes para a concorrência e paralelismo?"
+                    reactionCount={321}
+                />
+                <Message
+                    text="Quais são as melhores práticas para organizar o código em um projeto GoLang, incluindo pacotes, módulos e a estrutura de diretórios?"
+                    reactionCount={321}
+                />
             </ol>
         </div>
     );
