@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react'
-
 import amaLogo from '../assets/ama-logo.svg'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,7 +13,7 @@ export function CreateRoom() {
 	return (
 		<main className='h-screen flex items-center justify-center px-4'>
 			<div className='flex flex-col max-w-[450px] gap-6'>
-				<img className='h-10' src={amaLogo} alt="AMA" />
+				<img className='h-10' src={amaLogo} alt='AMA' />
 
 				<p className='text-zinc-300 text-center leading-relaxed'>
 					Crie uma sala pública de AMA (Ask me anything) e priorize as perguntas mais importantes para a comunidade.
