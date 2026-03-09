@@ -10,12 +10,17 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/joho/godotenv"
 	"github.com/mmarchesotti/ask-me-anything/internal/api"
 	"github.com/mmarchesotti/ask-me-anything/internal/store/pgstore"
 )
 
 func main() {
 	ctx := context.Background()
+
+	if err := godotenv.Load(); err != nil {
+		panic(err)
+	}
 
 	var pool *pgxpool.Pool
 	var err error
