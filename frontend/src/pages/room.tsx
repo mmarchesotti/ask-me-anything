@@ -1,7 +1,8 @@
 import { ArrowRight, Share2 } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
-import amaLogo from '../assets/ama-logo.svg';
 import { toast } from 'sonner';
+
+import amaLogo from '../assets/ama-logo.svg';
 import { Message } from '../components/message';
 
 export function Room() {
@@ -17,7 +18,7 @@ export function Room() {
         } else {
             navigator.clipboard.writeText(url);
 
-            toast('Room URL copied to clipboard.');
+            toast('O link da sala foi copiado para a área de transferência');
         }
     }
 
