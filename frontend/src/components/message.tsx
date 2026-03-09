@@ -64,7 +64,7 @@ export function Message({
                 <button
                     type="button"
                     onClick={handleRemoveReactionFromMessage}
-                    className="text-zinc-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-zinc-300"
+                    className="text-orange-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-orange-500"
                 >
                     <ArrowUp className="size-4" />
                     Curtir pergunta ({reactionCount})
@@ -73,7 +73,7 @@ export function Message({
                 <button
                     type="button"
                     onClick={handleAddReactionToMessage}
-                    className="text-orange-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-orange-500"
+                    className="text-zinc-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-zinc-300"
                 >
                     <ArrowUp className="size-4" />
                     Curtir pergunta ({reactionCount})
