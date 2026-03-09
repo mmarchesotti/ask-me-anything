@@ -20,7 +20,7 @@ export function CreateMessageForm() {
         try {
             await createMessage({ message, roomID });
         } catch {
-            toast.error('Falha ao enviar pergunta, tente novamente.');
+            toast.error('Falha ao enviar pergunta.');
         }
     }
 

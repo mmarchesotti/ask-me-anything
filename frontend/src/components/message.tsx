@@ -1,24 +1,55 @@
 import { ArrowUp } from 'lucide-react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { addMessageReaction } from '../http/add-message-reaction';
+import { toast } from 'sonner';
+import { removeMessageReaction } from '../http/remove-message-reaction';
 
 interface MessageProps {
+    id: string;
     text: string;
     reactionCount: number;
     answered?: boolean;
 }
 
 export function Message({
+    id: messageID,
     text,
     reactionCount,
     answered = false,
 }: MessageProps) {
+    const { roomID } = useParams();
     const [hasReacted, setHasReacted] = useState(false);
 
-    function handleAddReactionToMessage() {
+    if (!roomID) {
+        throw new Error('Message component must be used within room page');
+    }
+
+    async function handleAddReactionToMessage() {
+        if (!roomID) {
+            return;
+        }
+
+        try {
+            await addMessageReaction({ messageID, roomID });
+        } catch {
+            toast.error('Falha ao reagir à mensagem.');
+        }
+
         setHasReacted(true);
     }
 
-    function handleRemoveReactionFromMessage() {
+    async function handleRemoveReactionFromMessage() {
+        if (!roomID) {
+            return;
+        }
+
+        try {
+            await removeMessageReaction({ messageID, roomID });
+        } catch {
+            toast.error('Falha ao remover reação.');
+        }
+
         setHasReacted(false);
     }
 
@@ -31,6 +62,7 @@ export function Message({
 
             {hasReacted ? (
                 <button
+                    type="button"
                     onClick={handleRemoveReactionFromMessage}
                     className="text-zinc-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-zinc-300"
                 >
@@ -39,6 +71,7 @@ export function Message({
                 </button>
             ) : (
                 <button
+                    type="button"
                     onClick={handleAddReactionToMessage}
                     className="text-orange-400 mt-3 flex items-center gap-2 text-sm font-medium hover:text-orange-500"
                 >
