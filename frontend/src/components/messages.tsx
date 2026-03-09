@@ -15,15 +15,13 @@ export function Messages() {
         queryFn: () => getRoomMessages({ roomID }),
     });
 
-    console.log(data);
-
     return (
         <ol className="list-decimal list-outside px-3 space-y-8">
             {data.messages.map((message) => (
                 <Message
                     key={message.id}
                     text={message.message}
-                    reactionCount={message.reaction_count}
+                    reactionCount={message.reactionCount}
                     answered={message.answered}
                 />
             ))}
