@@ -30,14 +30,14 @@ export function Room() {
     }
 
     return (
-        <div className="mx-auto my-10 w-[640px] max-w-[640px] flex flex-col gap-6 px-4">
+        <div className="mx-auto my-10 max-w-[640px] flex flex-col gap-6 px-4">
             <div className="flex items-center px-3 gap-3">
                 <img className="h-5" src={amaLogo} alt="AMA" />
-                <div className="flex flex-1 items-center gap-1">
-                    <div className="text-zinc-500 text-sm truncate">
+                <div className="flex items-end gap-1 truncate">
+                    <span className="text-zinc-500 text-sm">
                         Código da sala:
-                    </div>
-                    <div className="text-zinc-300">{roomID}</div>
+                    </span>
+                    <span className="text-zinc-300 truncate">{roomID}</span>
                 </div>
                 <button
                     type="button"
