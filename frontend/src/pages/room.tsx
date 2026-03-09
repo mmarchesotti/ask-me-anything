@@ -3,7 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import amaLogo from '../assets/ama-logo.svg';
-import { Message } from '../components/message';
+import { Messages } from '../components/messages';
+import { Suspense } from 'react';
 
 export function Room() {
     const { roomID } = useParams();
@@ -70,21 +71,9 @@ export function Room() {
                 </button>
             </form>
 
-            <ol className="list-decimal list-outside px-3 space-y-8">
-                <Message
-                    text="O que é GoLang e quais são suas principais vantagens em comparação com outras linguagens de programação como Python, Java ou C++?"
-                    reactionCount={321}
-                    answered
-                />
-                <Message
-                    text="Como funcionam as goroutines em GoLang e por que elas são importantes para a concorrência e paralelismo?"
-                    reactionCount={321}
-                />
-                <Message
-                    text="Quais são as melhores práticas para organizar o código em um projeto GoLang, incluindo pacotes, módulos e a estrutura de diretórios?"
-                    reactionCount={321}
-                />
-            </ol>
+            <Suspense fallback={<p>Carregando...</p>}>
+                <Messages />
+            </Suspense>
         </div>
     );
 }
