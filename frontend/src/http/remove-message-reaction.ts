@@ -16,7 +16,5 @@ export async function removeMessageReaction({
 
     const data: { count: number } = await response.json();
 
-    console.log(data);
-
     return data;
 }

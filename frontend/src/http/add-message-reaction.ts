@@ -16,7 +16,5 @@ export async function addMessageReaction({
 
     const data: { count: number } = await response.json();
 
-    console.log(data);
-
     return data;
 }
